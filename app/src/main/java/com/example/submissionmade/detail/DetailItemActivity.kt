@@ -9,13 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.example.submissionmade.R
-import com.example.submissionmade.core.domain.model.Item
+import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.ui.ViewModelFactory
 import com.example.submissionmade.core.utils.Constants.Companion.BASE_IMG
 import com.example.submissionmade.databinding.ActivityDetailBinding
-import jp.wasabeef.glide.transformations.BlurTransformation
 
 class DetailActivity : AppCompatActivity() {
 
@@ -30,26 +28,26 @@ class DetailActivity : AppCompatActivity() {
         val factory = ViewModelFactory.getInstance(this)
         detailItemItemViewModel = ViewModelProvider(this, factory)[DetailItemViewModel::class.java]
 
-        val detailItem = intent.getParcelableExtra<Item>(EXTRA_DATA)
+        val detailItem = intent.getParcelableExtra<Items>(EXTRA_DATA)
         showDetailItem(detailItem)
     }
 
-    private fun showDetailItem(detailItem: Item?) {
-        detailItem?.let {
+    private fun showDetailItem(detailItems: Items?) {
+        detailItems?.let {
             with(binding) {
-                tvOverview.text = detailItem.overview
-                tvRating.text = detailItem.score.toString()
-                tvReleaseDate.text = detailItem.releaseDate
-                tvTitle.text = detailItem.title
+                tvOverview.text = detailItems.overview
+                tvRating.text = detailItems.score.toString()
+                tvReleaseDate.text = detailItems.releaseDate
+                tvTitle.text = detailItems.title
 
-                setPoster(BASE_IMG + detailItem.poster, ivPoster)
-                setHeader(BASE_IMG + detailItem.poster, ivHeader)
+                setPoster(BASE_IMG + detailItems.poster, ivPoster)
+                setHeader(BASE_IMG + detailItems.header, ivHeader)
 
-                var statusFavorite = detailItem.isFavorite
+                var statusFavorite = detailItems.isFavorite
                 setFavoriteState(statusFavorite)
                 btnFav.setOnClickListener {
                     statusFavorite = !statusFavorite
-                    detailItemItemViewModel.setFavoriteItem(detailItem, statusFavorite)
+                    detailItemItemViewModel.setFavoriteItem(detailItems, statusFavorite)
                     setFavoriteState(statusFavorite)
                 }
             }
@@ -77,8 +75,8 @@ class DetailActivity : AppCompatActivity() {
     private fun setHeader(url: String, view: ImageView) {
         Glide.with(this)
             .load(url)
-            .apply(bitmapTransform(BlurTransformation(15, 3))
-                .placeholder(R.drawable.logo)
+            .transform(RoundedCorners(10))
+            .apply(RequestOptions.placeholderOf(R.drawable.logo)
                 .error(R.drawable.ic_error))
             .into(view)
     }

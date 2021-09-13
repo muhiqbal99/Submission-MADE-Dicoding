@@ -1,34 +1,28 @@
 package com.example.submissionmade.core.data.source.local
 
-import androidx.lifecycle.LiveData
 import com.example.submissionmade.core.data.source.local.entity.ItemsEntity
-import com.example.submissionmade.core.data.source.local.room.ItemDao
+import com.example.submissionmade.core.data.source.local.room.ItemsDao
+import kotlinx.coroutines.flow.Flow
 
-class LocalDataSource private constructor(private val itemDao: ItemDao) {
+class LocalDataSource private constructor(private val itemsDao: ItemsDao) {
 
     companion object {
         private var INSTANCE: LocalDataSource? = null
 
-        fun getInstance(itemDao: ItemDao): LocalDataSource =
-            INSTANCE ?: LocalDataSource(itemDao)
+        fun getInstance(itemsDao: ItemsDao): LocalDataSource =
+            INSTANCE ?: LocalDataSource(itemsDao)
     }
 
-    fun getMovieItem(): LiveData<List<ItemsEntity>> = itemDao.getItems("movie")
+    fun getMovieItem(): Flow<List<ItemsEntity>> = itemsDao.getItems("movie")
 
-    fun getTvShowItem(): LiveData<List<ItemsEntity>> = itemDao.getItems("tvshow")
+    fun getTvShowItem(): Flow<List<ItemsEntity>> = itemsDao.getItems("tvshow")
 
-    fun getMovieById(id: Int): LiveData<ItemsEntity> = itemDao.getMovieById(id)
+    fun getFavoriteItemList(): Flow<List<ItemsEntity>> = itemsDao.getFavoriteList()
 
-    fun getTvShowById(id: Int): LiveData<ItemsEntity> = itemDao.getTvShowById(id)
-
-    fun insertItems(items: List<ItemsEntity>) = itemDao.insertItem(items)
-
-    fun insertDetail(items: List<ItemsEntity>) = itemDao.insertDetail(items)
-
-    fun getFavoriteItemList(): LiveData<List<ItemsEntity>> = itemDao.getFavoriteList()
+    suspend fun insertItems(items: List<ItemsEntity>) = itemsDao.insertItem(items)
 
     fun setFavorite(items: ItemsEntity, newState: Boolean) {
         items.isFavorite = newState
-        itemDao.updateItem(items)
+        itemsDao.updateItem(items)
     }
 }

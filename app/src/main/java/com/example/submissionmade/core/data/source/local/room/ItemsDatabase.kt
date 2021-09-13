@@ -7,20 +7,20 @@ import androidx.room.RoomDatabase
 import com.example.submissionmade.core.data.source.local.entity.ItemsEntity
 
 @Database(entities = [ItemsEntity::class], version = 1, exportSchema = false)
-abstract class ItemDatabase : RoomDatabase() {
-    abstract fun movieDao(): ItemDao
+abstract class ItemsDatabase : RoomDatabase() {
+    abstract fun itemDao(): ItemsDao
 
     companion object {
 
         @Volatile
-        private var INSTANCE: ItemDatabase? = null
+        private var INSTANCE: ItemsDatabase? = null
 
-        fun getInstance(context: Context): ItemDatabase =
+        fun getInstance(context: Context): ItemsDatabase =
             INSTANCE ?: synchronized(this) {
                 Room.databaseBuilder(
                     context.applicationContext,
-                    ItemDatabase::class.java,
-                    "tb_user_item.db"
+                    ItemsDatabase::class.java,
+                    "tb_items.db"
                 ).build().apply {
                     INSTANCE = this
                 }

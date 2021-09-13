@@ -12,11 +12,13 @@ data class ListMovieResponse(
 data class MovieResponse(
     val id: Int,
     val title: String = "",
-    @SerializedName("release_date")
+    @field:SerializedName("release_date")
     val releaseDate: String = "",
-    @SerializedName("vote_average")
+    @field:SerializedName("vote_average")
     val score: Double = 0.0,
     val overview: String = "",
-    @SerializedName("poster_path")
+    @field:SerializedName("poster_path")
     val poster: String = "",
+    @field:SerializedName("backdrop_path")
+    val header: String = "",
 )

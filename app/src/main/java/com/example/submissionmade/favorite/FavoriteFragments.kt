@@ -9,7 +9,7 @@ import android.widget.ScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.submissionmade.core.domain.model.Item
+import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.ui.ItemAdapter
 import com.example.submissionmade.core.ui.ViewModelFactory
 import com.example.submissionmade.databinding.FragmentFavoriteBinding
@@ -39,7 +39,7 @@ class FavoriteFragments : Fragment() {
         }
 
         favoriteAdapter.setOnClickCallback(object : ItemAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: Item) {
+            override fun onItemClicked(data: Items) {
                 val intent = Intent(context, DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_DATA, data)
                 startActivity(intent)

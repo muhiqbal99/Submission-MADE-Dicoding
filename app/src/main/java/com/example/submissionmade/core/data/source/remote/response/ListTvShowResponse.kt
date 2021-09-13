@@ -20,5 +20,6 @@ data class TvShowResponse(
     val overview: String = "",
     @field:SerializedName("poster_path")
     val poster: String = "",
-    val isFavorite: Boolean = false,
+    @field:SerializedName("backdrop_path")
+    val header: String = "",
 )

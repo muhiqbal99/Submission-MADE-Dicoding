@@ -1,16 +1,16 @@
 package com.example.submissionmade.core.domain.usecase
 
-import androidx.lifecycle.LiveData
 import com.example.submissionmade.core.data.Resource
-import com.example.submissionmade.core.domain.model.Item
+import com.example.submissionmade.core.domain.model.Items
+import kotlinx.coroutines.flow.Flow
 
 interface ItemUseCase {
 
-    fun getMovieItem(): LiveData<Resource<List<Item>>>
+    fun getMovieItem(): Flow<Resource<List<Items>>>
 
-    fun getTvShowItem(): LiveData<Resource<List<Item>>>
+    fun getTvShowItem(): Flow<Resource<List<Items>>>
 
-    fun getFavoriteItem(): LiveData<List<Item>>
+    fun getFavoriteItem(): Flow<List<Items>>
 
-    fun setFavorite(item: Item, state: Boolean)
+    fun setFavorite(items: Items, state: Boolean)
 }

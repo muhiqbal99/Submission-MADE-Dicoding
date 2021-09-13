@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submissionmade.R
-import com.example.submissionmade.core.domain.model.Item
+import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.utils.Constants.Companion.BASE_IMG
 import com.example.submissionmade.databinding.ItemListBinding
 
 class ItemAdapter :
     RecyclerView.Adapter<ItemAdapter.MovieMyViewHolder>() {
 
-    private var mData: List<Item> = emptyList()
+    private var mData: List<Items> = emptyList()
     private var onItemClickCallback: OnItemClickCallback? = null
 
     fun setOnClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -21,10 +21,10 @@ class ItemAdapter :
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: Item)
+        fun onItemClicked(data: Items)
     }
 
-    fun setData(items: List<Item>?) {
+    fun setData(items: List<Items>?) {
         if (items == null) return
         this.mData = items
         notifyDataSetChanged()
@@ -46,16 +46,16 @@ class ItemAdapter :
 
     inner class MovieMyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var binding = ItemListBinding.bind(itemView)
-        fun bind(itemsEntityItem: Item) {
+        fun bind(itemsEntityItems: Items) {
             with(binding) {
                 Glide.with(itemView)
-                    .load(BASE_IMG + itemsEntityItem.poster)
+                    .load(BASE_IMG + itemsEntityItems.poster)
                     .into(imgLogo)
 
-                tvTitle.text = itemsEntityItem.title
-                tvRating.text = itemsEntityItem.score.toString()
+                tvTitle.text = itemsEntityItems.title
+                tvRating.text = itemsEntityItems.score.toString()
                 root.setOnClickListener {
-                    onItemClickCallback?.onItemClicked(itemsEntityItem)
+                    onItemClickCallback?.onItemClicked(itemsEntityItems)
                 }
             }
         }

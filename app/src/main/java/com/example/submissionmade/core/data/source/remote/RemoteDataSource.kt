@@ -1,129 +1,57 @@
 package com.example.submissionmade.core.data.source.remote
 
-import android.os.Handler
-import android.os.Looper
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.submissionmade.core.data.source.remote.network.RetrofitInstance
-import com.example.submissionmade.core.data.source.remote.response.ListMovieResponse
-import com.example.submissionmade.core.data.source.remote.response.ListTvShowResponse
+import android.util.Log
+import com.example.submissionmade.core.data.source.remote.network.ApiService
 import com.example.submissionmade.core.data.source.remote.response.MovieResponse
 import com.example.submissionmade.core.data.source.remote.response.TvShowResponse
-import com.example.submissionmade.core.utils.EspressoIdlingResource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
-class RemoteDataSource {
-    private var handler = Handler(Looper.getMainLooper())
+class RemoteDataSource private constructor(private val apiService: ApiService) {
 
-    fun getMovie(): LiveData<ApiResponse<List<MovieResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<MovieResponse>>>()
-        EspressoIdlingResource.increment()
-        handler.postDelayed({
-            RetrofitInstance.apiService.getMovie().enqueue(object : Callback<ListMovieResponse> {
-                override fun onFailure(call: Call<ListMovieResponse>, t: Throwable) {
-                    resultData.value = ApiResponse.Error(t.message.toString())
+    fun getMovie(): Flow<ApiResponse<List<MovieResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getMovie()
+                val dataArray = response.results
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.results))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
-
-                override fun onResponse(
-                    call: Call<ListMovieResponse>,
-                    responseList: Response<ListMovieResponse>,
-                ) {
-                    val dataArray = responseList.body()?.results
-                    resultData.value =
-                        if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
-                }
-
-            })
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
-        return resultData
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
-    fun getMovieDetail(id: Int): LiveData<ApiResponse<List<MovieResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<MovieResponse>>>()
-        EspressoIdlingResource.increment()
-        handler.postDelayed({
-            RetrofitInstance.apiService.getMovieDetails(id)
-                .enqueue(object : Callback<List<MovieResponse>> {
-                    override fun onFailure(call: Call<List<MovieResponse>>, t: Throwable) {
-                        resultData.value = ApiResponse.Error(t.message.toString())
-                    }
-
-                    override fun onResponse(
-                        call: Call<List<MovieResponse>>,
-                        response: Response<List<MovieResponse>>,
-                    ) {
-                        val dataArray = response.body()
-                        resultData.value =
-                            if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
-                    }
-
-                })
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
-        return resultData
-    }
-
-    fun getTvShow(): LiveData<ApiResponse<List<TvShowResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<TvShowResponse>>>()
-        EspressoIdlingResource.increment()
-        handler.postDelayed({
-            RetrofitInstance.apiService.getTvShow().enqueue(object : Callback<ListTvShowResponse> {
-                override fun onFailure(call: Call<ListTvShowResponse>, t: Throwable) {
-                    resultData.value = ApiResponse.Error(t.message.toString())
+    fun getTvShow(): Flow<ApiResponse<List<TvShowResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTvShow()
+                val dataArray = response.results
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.results))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
-
-                override fun onResponse(
-                    call: Call<ListTvShowResponse>,
-                    responseList: Response<ListTvShowResponse>,
-                ) {
-                    val dataArray = responseList.body()?.results
-                    resultData.value =
-                        if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
-                }
-
-            })
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
-        return resultData
-    }
-
-    fun getTvShowDetail(id: Int): LiveData<ApiResponse<List<TvShowResponse>>> {
-        val resultData = MutableLiveData<ApiResponse<List<TvShowResponse>>>()
-        EspressoIdlingResource.increment()
-        handler.postDelayed({
-            RetrofitInstance.apiService.getTvShowDetails(id)
-                .enqueue(object : Callback<List<TvShowResponse>> {
-                    override fun onFailure(call: Call<List<TvShowResponse>>, t: Throwable) {
-                        resultData.value = ApiResponse.Error(t.message.toString())
-                    }
-
-                    override fun onResponse(
-                        call: Call<List<TvShowResponse>>,
-                        response: Response<List<TvShowResponse>>,
-                    ) {
-                        val dataArray = response.body()
-                        resultData.value =
-                            if (dataArray != null) ApiResponse.Success(dataArray) else ApiResponse.Empty
-                    }
-
-                })
-            EspressoIdlingResource.decrement()
-        }, SERVICE_LATENCY_IN_MILLIS)
-        return resultData
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
     companion object {
-        private const val SERVICE_LATENCY_IN_MILLIS: Long = 2000
-
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(): RemoteDataSource =
+        fun getInstance(service: ApiService): RemoteDataSource =
             instance ?: synchronized(this) {
-                instance ?: RemoteDataSource()
+                instance ?: RemoteDataSource(service)
             }
     }
 }

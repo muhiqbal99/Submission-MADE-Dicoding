@@ -1,18 +1,18 @@
 package com.example.submissionmade.core.domain.usecase
 
-import androidx.lifecycle.LiveData
 import com.example.submissionmade.core.data.Resource
-import com.example.submissionmade.core.domain.model.Item
+import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.domain.repository.IItemRepository
+import kotlinx.coroutines.flow.Flow
 
 class ItemInteractor(private val itemRepository: IItemRepository) : ItemUseCase {
 
-    override fun getMovieItem(): LiveData<Resource<List<Item>>> = itemRepository.getMovieItem()
+    override fun getMovieItem(): Flow<Resource<List<Items>>> = itemRepository.getMovieItem()
 
-    override fun getTvShowItem(): LiveData<Resource<List<Item>>> = itemRepository.getTvShowItem()
+    override fun getTvShowItem(): Flow<Resource<List<Items>>> = itemRepository.getTvShowItem()
 
-    override fun getFavoriteItem(): LiveData<List<Item>> = itemRepository.getFavoriteItem()
+    override fun getFavoriteItem(): Flow<List<Items>> = itemRepository.getFavoriteItem()
 
-    override fun setFavorite(item: Item, state: Boolean) = itemRepository.setFavorite(item, state)
+    override fun setFavorite(items: Items, state: Boolean) = itemRepository.setFavorite(items, state)
 
 }

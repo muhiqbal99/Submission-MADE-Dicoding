@@ -27,6 +27,9 @@ data class ItemsEntity(
     @ColumnInfo(name = "poster")
     var poster: String = "",
 
+    @ColumnInfo(name = "header")
+    var header: String = "",
+
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false,
 
