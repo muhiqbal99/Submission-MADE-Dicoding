@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Submission MADE</string>
+
+    <string name="desc_img_logo">Logo Apps</string>
+    <string name="desc_img_movie">Poster Movies</string>
+    <string name="desc_fav_button">Favorite Button</string>
+    <string name="desc_fav_notFound">icon favorite not found</string>
+
+    <string name="fav_not_found">Add your favorite Movies / TvShow first !</string>
+    <string name="error">Error occurred, please check your internet connection !</string>
+</resources>
