@@ -6,6 +6,8 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+apply from: '../shared_dependencies.gradle'
+
 android {
     compileSdk 31
 
@@ -17,22 +19,14 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
-        buildConfigField "String", "API_KEY", "\"8acc967155ae4e7cce9e67b3561098d8\""
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "proguard-rules.pro"
-
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
-            pseudoLocalesEnabled false
-            zipAlignEnabled true
         }
     }
     compileOptions {
@@ -45,40 +39,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dynamicFeatures = [':Favorite']
 }
 
 
 dependencies {
-    implementation "androidx.core:core-ktx:$core_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-
-    implementation "androidx.activity:activity-ktx:$activity_ktx_version"
-    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    androidTestImplementation "androidx.room:room-testing:$room_version"
-
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
-    implementation "androidx.appcompat:appcompat:$app_compat_version"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
-    implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
-    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    implementation "com.intuit.sdp:sdp-android:$sdp_version"
-
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation project(":core")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -8,4 +8,9 @@
 
     <string name="fav_not_found">Add your favorite Movies / TvShow first !</string>
     <string name="error">Error occurred !</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_movie">Movie</string>
+    <string name="title_tvshow">TvShow</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

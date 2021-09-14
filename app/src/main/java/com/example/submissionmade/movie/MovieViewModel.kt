@@ -12,5 +12,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieViewModel @Inject constructor(private val itemUseCase: ItemUseCase) : ViewModel() {
 
-    fun getMovies(): LiveData<Resource<List<Items>>> = itemUseCase.getMovieItem().asLiveData()
+    fun getMovies(): LiveData<Resource<List<Items>>> =
+        itemUseCase.getMovieItem().asLiveData()
 }

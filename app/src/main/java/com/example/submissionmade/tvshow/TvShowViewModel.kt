@@ -12,5 +12,6 @@ import javax.inject.Inject
 @HiltViewModel
 class TvShowViewModel @Inject constructor(private val itemUseCase: ItemUseCase) : ViewModel() {
 
-    fun getTvShow(): LiveData<Resource<List<Items>>> = itemUseCase.getTvShowItem().asLiveData()
+    fun getTvShow(): LiveData<Resource<List<Items>>> =
+        itemUseCase.getTvShowItem().asLiveData()
 }

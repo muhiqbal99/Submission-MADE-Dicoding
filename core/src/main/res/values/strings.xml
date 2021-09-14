@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">core</string>
+
+    <string name="desc_img_logo">Logo Apps</string>
+    <string name="desc_img_movie">Poster Movies</string>
+    <string name="desc_fav_button">Favorite Button</string>
+    <string name="desc_fav_notFound">icon favorite not found</string>
+
+</resources>

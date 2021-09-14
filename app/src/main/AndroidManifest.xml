@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SubmissionMADE">
         <activity
-            android:name="com.example.submissionmade.splashscreen.SplashActivity"
+            android:name=".splashscreen.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.SubmissionMADE.FullScreen">
             <intent-filter>
@@ -22,12 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.submissionmade.detail.DetailActivity">
+        <activity android:name=".detail.DetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.submissionmade.HomeActivity" />
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name="com.example.submissionmade.HomeActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

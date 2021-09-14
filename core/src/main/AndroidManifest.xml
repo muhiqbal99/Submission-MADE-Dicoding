@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.submissionmade.core">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_launcher_rounded"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SubmissionMADE" />
+
+</manifest>

@@ -5,5 +5,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Submission BAJP"
+rootProject.name = "Submission MADE"
+include ':Favorite'
 include ':app'
+include ':core'
