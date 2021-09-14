@@ -8,19 +8,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.submissionmade.R
 import com.example.submissionmade.core.data.Resource
 import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.ui.ItemAdapter
-import com.example.submissionmade.core.ui.ViewModelFactory
 import com.example.submissionmade.databinding.FragmentItemBinding
 import com.example.submissionmade.detail.DetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TvShowFragment : Fragment() {
 
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding
+    private val tvShowViewModel: TvShowViewModel by viewModels()
     private val tvShowAdapter = ItemAdapter()
 
     override fun onCreateView(
@@ -35,22 +38,17 @@ class TvShowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
-
-
-            viewModel.getTvShow().observe(viewLifecycleOwner, { tvShow ->
+            tvShowViewModel.getTvShow().observe(viewLifecycleOwner, { tvShow ->
                 if (tvShow != null) {
                     when (tvShow) {
                         is Resource.Loading -> showLoading(true)
                         is Resource.Success -> {
                             showLoading(false)
                             tvShowAdapter.setData(tvShow.data)
-                            tvShowAdapter.notifyDataSetChanged()
                         }
                         is Resource.Error -> {
                             showLoading(false)
-                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -83,9 +81,5 @@ class TvShowFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val CLICK_TV = 2
     }
 }

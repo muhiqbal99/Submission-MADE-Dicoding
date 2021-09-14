@@ -1,6 +1,7 @@
 package com.example.submissionmade.core.data.source.remote
 
 import android.util.Log
+import com.example.submissionmade.core.data.source.remote.network.ApiResponse
 import com.example.submissionmade.core.data.source.remote.network.ApiService
 import com.example.submissionmade.core.data.source.remote.response.MovieResponse
 import com.example.submissionmade.core.data.source.remote.response.TvShowResponse
@@ -8,8 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteDataSource private constructor(private val apiService: ApiService) {
+@Singleton
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     fun getMovie(): Flow<ApiResponse<List<MovieResponse>>> {
         return flow {
@@ -43,15 +47,5 @@ class RemoteDataSource private constructor(private val apiService: ApiService) {
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
-    }
-
-    companion object {
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(service: ApiService): RemoteDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteDataSource(service)
-            }
     }
 }

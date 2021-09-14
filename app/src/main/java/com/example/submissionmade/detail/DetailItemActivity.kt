@@ -2,31 +2,29 @@ package com.example.submissionmade.detail
 
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.submissionmade.R
 import com.example.submissionmade.core.domain.model.Items
-import com.example.submissionmade.core.ui.ViewModelFactory
 import com.example.submissionmade.core.utils.Constants.Companion.BASE_IMG
 import com.example.submissionmade.databinding.ActivityDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var detailItemItemViewModel: DetailItemViewModel
+    private val detailItemItemViewModel: DetailItemViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val factory = ViewModelFactory.getInstance(this)
-        detailItemItemViewModel = ViewModelProvider(this, factory)[DetailItemViewModel::class.java]
 
         val detailItem = intent.getParcelableExtra<Items>(EXTRA_DATA)
         showDetailItem(detailItem)

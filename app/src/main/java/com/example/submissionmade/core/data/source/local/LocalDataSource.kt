@@ -3,15 +3,11 @@ package com.example.submissionmade.core.data.source.local
 import com.example.submissionmade.core.data.source.local.entity.ItemsEntity
 import com.example.submissionmade.core.data.source.local.room.ItemsDao
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LocalDataSource private constructor(private val itemsDao: ItemsDao) {
-
-    companion object {
-        private var INSTANCE: LocalDataSource? = null
-
-        fun getInstance(itemsDao: ItemsDao): LocalDataSource =
-            INSTANCE ?: LocalDataSource(itemsDao)
-    }
+@Singleton
+class LocalDataSource @Inject constructor(private val itemsDao: ItemsDao) {
 
     fun getMovieItem(): Flow<List<ItemsEntity>> = itemsDao.getItems("movie")
 

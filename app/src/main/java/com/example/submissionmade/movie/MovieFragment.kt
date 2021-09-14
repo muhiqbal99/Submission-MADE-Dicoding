@@ -8,20 +8,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.submissionmade.R
 import com.example.submissionmade.core.data.Resource
 import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.ui.ItemAdapter
-import com.example.submissionmade.core.ui.ViewModelFactory
 import com.example.submissionmade.databinding.FragmentItemBinding
 import com.example.submissionmade.detail.DetailActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieFragment : Fragment() {
 
     private var _binding: FragmentItemBinding? = null
     private val binding get() = _binding
-
+    private val movieViewModel: MovieViewModel by viewModels()
     private val itemAdapter = ItemAdapter()
 
     override fun onCreateView(
@@ -37,22 +39,17 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
-
-
-            viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+            movieViewModel.getMovies().observe(viewLifecycleOwner, { movies ->
                 if (movies != null) {
                     when (movies) {
                         is Resource.Loading -> showLoading(true)
                         is Resource.Success -> {
                             showLoading(false)
                             itemAdapter.setData(movies.data)
-                            itemAdapter.notifyDataSetChanged()
                         }
                         is Resource.Error -> {
                             showLoading(false)
-                            Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

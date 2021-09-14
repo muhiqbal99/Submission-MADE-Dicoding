@@ -4,8 +4,9 @@ import com.example.submissionmade.core.data.Resource
 import com.example.submissionmade.core.domain.model.Items
 import com.example.submissionmade.core.domain.repository.IItemRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ItemInteractor(private val itemRepository: IItemRepository) : ItemUseCase {
+class ItemInteractor @Inject constructor(private val itemRepository: IItemRepository) : ItemUseCase {
 
     override fun getMovieItem(): Flow<Resource<List<Items>>> = itemRepository.getMovieItem()
 

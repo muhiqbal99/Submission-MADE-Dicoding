@@ -1,6 +1,6 @@
 package com.example.submissionmade.core.data
 
-import com.example.submissionmade.core.data.source.remote.ApiResponse
+import com.example.submissionmade.core.data.source.remote.network.ApiResponse
 import kotlinx.coroutines.flow.*
 
 abstract class NetworkBoundResource<ResultType, RequestType> {

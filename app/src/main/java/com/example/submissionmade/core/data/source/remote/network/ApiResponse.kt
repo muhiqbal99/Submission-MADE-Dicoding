@@ -1,4 +1,4 @@
-package com.example.submissionmade.core.data.source.remote
+package com.example.submissionmade.core.data.source.remote.network
 
 sealed class ApiResponse<out R> {
     data class Success<out T>(val data: T) : ApiResponse<T>()

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.submissionmade.core.ui.ViewPagerAdapter
 import com.example.submissionmade.databinding.ActivityHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
 

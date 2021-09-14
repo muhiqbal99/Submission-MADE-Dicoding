@@ -1,8 +1,8 @@
 package com.example.submissionmade.core.data
 
 import com.example.submissionmade.core.data.source.local.LocalDataSource
-import com.example.submissionmade.core.data.source.remote.ApiResponse
 import com.example.submissionmade.core.data.source.remote.RemoteDataSource
+import com.example.submissionmade.core.data.source.remote.network.ApiResponse
 import com.example.submissionmade.core.data.source.remote.response.MovieResponse
 import com.example.submissionmade.core.data.source.remote.response.TvShowResponse
 import com.example.submissionmade.core.domain.model.Items
@@ -11,26 +11,15 @@ import com.example.submissionmade.core.utils.AppExecutors
 import com.example.submissionmade.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ItemsRepository private constructor(
+@Singleton
+class ItemsRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors,
 ) : IItemRepository {
-
-    companion object {
-        @Volatile
-        private var instance: ItemsRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors,
-        ): ItemsRepository =
-            instance ?: synchronized(this) {
-                instance ?: ItemsRepository(remoteData, localData, appExecutors)
-            }
-    }
 
     override fun getMovieItem(): Flow<Resource<List<Items>>> {
         return object : NetworkBoundResource<List<Items>, List<MovieResponse>>() {
