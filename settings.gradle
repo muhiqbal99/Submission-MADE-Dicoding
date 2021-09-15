@@ -6,6 +6,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Submission MADE"
-include ':Favorite'
+include ':favorite'
 include ':app'
 include ':core'
