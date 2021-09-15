@@ -15,6 +15,10 @@
 -dontwarn sun.misc.**
 #-keep class com.google.gson.stream.** { *; }
 
+# KeepClass From Obfuscation
+-keepclassmembers class com.example.submissionmade.core.data.source.remote.response.ListMovieResponse { <fields>; }
+-keepclassmembers class com.example.submissionmade.core.data.source.remote.response.ListTvShowResponse { <fields>; }
+
 # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { <fields>; }
 

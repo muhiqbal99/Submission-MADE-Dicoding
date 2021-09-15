@@ -10,6 +10,7 @@ apply from: '../shared_dependencies.gradle'
 
 android {
     compileSdk 31
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.submissionmade"

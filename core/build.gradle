@@ -19,6 +19,7 @@ android {
         buildConfigField "String", "API_KEY", "\"8acc967155ae4e7cce9e67b3561098d8\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
         vectorDrawables.useSupportLibrary = true
     }
 
