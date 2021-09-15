@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Submission MADE</string>
+
+    <string name="desc_img_logo">Logo Apps</string>
+    <string name="desc_img_movie">Poster Movies</string>
+    <string name="desc_fav_button">Favorite Button</string>
+
+    <string name="fav_not_found">Add your favorite Movies / TvShow first !</string>
+    <string name="error">Error occurred !</string>
+
+    <string name="title_movie">Movie</string>
+    <string name="title_tvshow">TvShow</string>
+    <string name="title_favorite">Favorite</string>
+</resources>
