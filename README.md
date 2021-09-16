@@ -8,7 +8,6 @@ Aplikasi ini memiliki fitur :
 2. Halaman List TvShow
 3. Halaman List Favorit ( Movie & TvShow)
 
-
 TechStack :
 1. Clean Architecture ( Data, Domain, Presentation )
 2. Reactive Programming ( Coroutine Flow )
