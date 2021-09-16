@@ -1,6 +1,6 @@
 # Submission-Dicoding-MADE
 
-![Summary](/home/iqbal/IdeaProjects/Submission-Dicoding-MADE/mad_scorecard/summary.png)
+![Summary](/mad_scorecard/summary.png)
 
 Aplikasi ini dibuat sebagai syarat kelulus kelas Dicoding Menjadi Android Developer Expert (MADE).
 Aplikasi ini memiliki fitur :
