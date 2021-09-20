@@ -6,7 +6,8 @@ Aplikasi ini dibuat sebagai syarat kelulus kelas Dicoding Menjadi Android Develo
 Aplikasi ini memiliki fitur :
 1. Halaman List Movie
 2. Halaman List TvShow
-3. Halaman List Favorit ( Movie & TvShow)
+3. Halaman List Favorite ( Movie & TvShow)
+4. CRUD Movie, TvShow & Favorite
 
 TechStack :
 1. Clean Architecture ( Data, Domain, Presentation )
