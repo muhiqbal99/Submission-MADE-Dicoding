@@ -17,4 +17,4 @@ TechStack :
 6. Obfuscation dengan Proguard
 7. Database Enkripsi dengan SQLChiper
 
-UI by [Rlsh Tran](https://www.figma.com/community/file/998526936934135880/Star-Movie-UI-Kit)
+Assets by [Rlsh Tran](https://www.figma.com/community/file/998526936934135880/Star-Movie-UI-Kit)
