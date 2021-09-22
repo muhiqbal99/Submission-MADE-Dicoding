@@ -12,9 +12,9 @@ Aplikasi ini memiliki fitur :
 TechStack :
 1. Clean Architecture ( Data, Domain, Presentation )
 2. Reactive Programming ( Coroutine Flow )
-3. Dependency Injection ( Dagger Hilt)
-4. Modularization ( Library untuk fitur utama dan Dynamic Library untuk fitur Favorit)
-5. Continuous Integration ( Circle CI)
+3. Dependency Injection ( Dagger Hilt )
+4. Modularization ( Library untuk fitur utama dan Dynamic Library untuk fitur Favorit )
+5. Continuous Integration ( Circle CI )
 6. Obfuscation dengan Proguard
 7. Database Enkripsi dengan SQLChiper
 
